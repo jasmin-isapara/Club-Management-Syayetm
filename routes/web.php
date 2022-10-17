@@ -23,6 +23,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+// dd('jasin');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
