@@ -1,6 +1,6 @@
 <template>
 <div id="kt_header" style="" class="header align-items-stretch">
-    <div class="container-fluid d-flex align-items-stretch justify-content-between">
+    <div class="container-fluid d-flex align-items-stretch justify-content-between" style="background: gainsboro">
         <div class="d-flex align-items-center d-lg-none ms-n2 me-2" title="Show aside menu">
             <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" id="kt_aside_mobile_toggle">
                 <span class="svg-icon svg-icon-1">
@@ -13,18 +13,20 @@
         </div>
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="../../demo1/dist/index.html" class="d-lg-none">
-                <img alt="Logo" src="assets/media/logos/logo-2.svg" class="h-30px" />
+                <img alt="Logo" src="../../../../public/admin/media/logos/ast1.jpg" class="h-30px" />
             </a>
         </div>
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
-                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item here show menu-lg-down-accordion me-lg-1">
-                            <span class="menu-link py-3">
-                                <span class="menu-title">Dashboards</span>
-                                <span class="menu-arrow d-lg-none"></span>
-                            </span>
+                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item here show menu-lg-down-accordion me-lg-1 space-x-8 sm-flex pt-5">
+                            <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="font-15 pb-5">
+                                Dashboards
+                            </BreezeNavLink>
+                            <BreezeNavLink :href="route('demo')" :active="route().current('demo')" class="font-15 pb-5">
+                                Demo
+                            </BreezeNavLink>
                         </div>
                     </div>
                 </div>
@@ -186,11 +188,16 @@
 </template>
 
 <script>
+import BreezeNavLink from '@/Components/NavLink.vue'
 export default {
-
+    components: {
+        BreezeNavLink
+    }
 }
 </script>
 
 <style>
-
+.font-15 {
+    font-size: 15px;
+}
 </style>
