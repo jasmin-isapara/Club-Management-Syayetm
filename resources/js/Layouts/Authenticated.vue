@@ -1,5 +1,6 @@
 <template>
 <div>
+    <!-- <HeaderLinks /> -->
     <div id="kt_body" class="header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
         <div class="d-flex flex-column flex-root">
             <div class="page d-flex flex-row flex-column-fluid">
@@ -24,7 +25,7 @@
 
     <div class="hidden sm:flex sm:items-center sm:ml-6">
         <!-- Settings Dropdown -->
-        <div class="ml-3 relative">
+        <!-- <div class="ml-3 relative">
             <BreezeDropdown align="right" width="48">
                 <template #trigger>
                     <span class="inline-flex rounded-md">
@@ -38,26 +39,16 @@
                     </span>
                 </template>
 
-                <!-- <template #content>
+                 <template #content>
                     <BreezeDropdownLink :href="route('logout')" method="post" as="button">
                         Log Out
                     </BreezeDropdownLink>
-                </template> -->
+                </template>
             </BreezeDropdown>
-        </div>
+        </div> -->
     </div>
 
-    <!-- Hamburger -->
-    <div class="-mr-2 flex items-center sm:hidden">
-        <button @click="showingNavigationDropdown = ! showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
-    <!-- </div>
-            </div> -->
+
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
@@ -96,6 +87,7 @@ import {
 } from '@inertiajs/inertia-vue3';
 import Sidebar from './Partials/Sidebar.vue';
 import HeaderContent from './Partials/header.vue';
+// import HeaderLinks from './Partials/header-links.vue'
 
 export default {
     components: {
@@ -107,6 +99,7 @@ export default {
         Link,
         Sidebar,
         HeaderContent,
+        // HeaderLinks
     },
 
     data() {

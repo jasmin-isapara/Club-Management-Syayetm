@@ -12,8 +12,8 @@
             </div>
         </div>
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="../../demo1/dist/index.html" class="d-lg-none">
-                <img alt="Logo" src="assets/media/logos/logo-2.svg" class="h-30px" />
+            <a href="http://127.0.0.1:8000/dashboard" class="d-lg-none">
+                <img alt="Logo" src="../../../../public/admin/media/logos/ast1.jpg" class="h-30px" />
             </a>
         </div>
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
@@ -155,7 +155,9 @@
                                 Settings</a>
                         </div>
                         <div class="menu-item px-5">
-                            <a href="../../demo1/dist/authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a>
+                            <router-link to="/login"></router-link>
+                            <li><a href="#" class="menu-link px-5" @click.prevent="logout">Sign Out</a></li>
+                            <!-- <a href="../../demo1/dist/authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a> -->
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
@@ -187,8 +189,20 @@
 
 <script>
 export default {
-
-}
+        data: () => ({
+             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+             }),   
+        methods:{
+            logout:function(){
+               axios.post('logout').then(response => {
+                   if (response.data) {
+                       window.location.href = '/login';
+                   }
+                }).catch(error => {
+              });
+            },
+        },
+    }
 </script>
 
 <style>
