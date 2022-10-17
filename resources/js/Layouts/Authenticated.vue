@@ -1,6 +1,5 @@
 <template>
 <div>
-    <HeaderLinks />
     <div id="kt_body" class="header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
         <div class="d-flex flex-column flex-root">
             <div class="page d-flex flex-row flex-column-fluid">
@@ -97,7 +96,6 @@ import {
 } from '@inertiajs/inertia-vue3';
 import Sidebar from './Partials/Sidebar.vue';
 import HeaderContent from './Partials/header.vue';
-import HeaderLinks from './Partials/header-links.vue'
 
 export default {
     components: {
@@ -109,7 +107,6 @@ export default {
         Link,
         Sidebar,
         HeaderContent,
-        HeaderLinks
     },
 
     data() {
@@ -121,8 +118,4 @@ export default {
 </script>
 
 <style>
-@import '../../../public/admin/css/style.bundle.css';
-@import '../../../public/admin/css/style.bundle.rtl.css';
-/* @import '../../../public/admin/css/style.dark.bundle.rtl.css';
-    @import '../../../public/admin/css/style.dark.bundle.css'; */
 </style>
