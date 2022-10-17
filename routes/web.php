@@ -29,5 +29,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/demo', function () {
+    return Inertia::render('Demo');
+})->middleware(['auth', 'verified'])->name('demo');
 
+Route::view('demo1', 'demo1');
 require __DIR__ . '/auth.php';
