@@ -1,7 +1,7 @@
 <template>
 <div>
     <HeaderLinks />
-    <div id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+    <div id="kt_body" class="header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
         <div class="d-flex flex-column flex-root">
             <div class="page d-flex flex-row flex-column-fluid">
                 <Sidebar />
@@ -39,11 +39,11 @@
                     </span>
                 </template>
 
-                <template #content>
+                <!-- <template #content>
                     <BreezeDropdownLink :href="route('logout')" method="post" as="button">
                         Log Out
                     </BreezeDropdownLink>
-                </template>
+                </template> -->
             </BreezeDropdown>
         </div>
     </div>
