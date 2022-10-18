@@ -24,6 +24,9 @@
                             <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')" class="font-15 pb-5">
                                 Dashboards
                             </BreezeNavLink>
+                            <BreezeNavLink :href="route('employee.index')" :active="route().current('employee*')" class="font-15 pb-5">
+                                Employee
+                            </BreezeNavLink>
                             <BreezeNavLink :href="route('demo')" :active="route().current('demo')" class="font-15 pb-5">
                                 Demo
                             </BreezeNavLink>

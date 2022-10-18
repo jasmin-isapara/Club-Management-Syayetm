@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\EmployeeController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -34,7 +35,9 @@ Route::get('/dashboard', function () {
 //     return Inertia::render('Demo');
 // })->middleware(['auth', 'verified'])->name('demo');
 
-Route::get('/demo', [DemoController::class, 'index']);
+Route::resource('employee', EmployeeController::class);
+
+Route::get('/demo', [DemoController::class, 'index'])->name('demo');
 
 Route::view('demo1', 'demo1');
 require __DIR__ . '/auth.php';
