@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->string('mobile');
             $table->string('gender');
+            $table->boolean('status')->default(1);
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });

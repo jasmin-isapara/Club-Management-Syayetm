@@ -25,17 +25,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-// dd('jasin');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/demo', function () {
-//     return Inertia::render('Demo');
-// })->middleware(['auth', 'verified'])->name('demo');
-
 Route::resource('employee', EmployeeController::class);
+// Route::get('employee',[EmployeeController::class , 'index'])->name('employee');
 
 Route::get('/demo', [DemoController::class, 'index'])->name('demo');
 

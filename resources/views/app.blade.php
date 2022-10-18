@@ -33,6 +33,11 @@
     <script src="{{ asset('admin/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
     <script src="{{ asset('admin/js/custom/utilities/modals/create-app.js') }}"></script>
     <script src="{{ asset('admin/js/custom/utilities/modals/users-search.js') }}"></script>
+    <script src="{{ asset('admin/js/custom/apps/customers/list/export.js') }}"></script>
+    <script src="{{ asset('admin/js/custom/apps/customers/list/list.js') }}"></script>
+    <script src="{{ asset('admin/js/custom/apps/customers/add.js') }}"></script>
+
+
 </head>
 
 <body class="font-sans antialiased">
