@@ -1,101 +1,21 @@
 <template>
-    <div>
-        <!-- <HeaderLinks /> -->
-        <div
-            id="kt_body"
-            class="header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
-            style="
+<div>
+    <div id="kt_body" class="header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="
                 --kt-toolbar-height: 55px;
                 --kt-toolbar-height-tablet-and-mobile: 55px;
-            "
-        >
-            <div class="d-flex flex-column flex-root">
-                <div class="page d-flex flex-row flex-column-fluid">
-                    <Sidebar />
-                    <div
-                        class="wrapper d-flex flex-column flex-row-fluid"
-                        id="kt_wrapper"
-                    >
-                        <HeaderContent />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navigation Links -->
-        <!-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                Dashboard
-                            </BreezeNavLink>
-
-                            <BreezeNavLink :href="route('demo')" :active="route().current('demo')">
-                                Demo
-                            </BreezeNavLink>
-                        </div> -->
-        <!-- </div> -->
-
-        <div class="hidden sm:flex sm:items-center sm:ml-6">
-            <!-- Settings Dropdown -->
-            <!-- <div class="ml-3 relative">
-            <BreezeDropdown align="right" width="48">
-                <template #trigger>
-                    <span class="inline-flex rounded-md">
-                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            {{ $page.props.auth.user.name }}
-
-                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </span>
-                </template>
-
-                 <template #content>
-                    <BreezeDropdownLink :href="route('logout')" method="post" as="button">
-                        Log Out
-                    </BreezeDropdownLink>
-                </template>
-            </BreezeDropdown>
-        </div> -->
-        </div>
-
-        <!-- Responsive Navigation Menu -->
-        <div
-            :class="{
-                block: showingNavigationDropdown,
-                hidden: !showingNavigationDropdown,
-            }"
-            class="sm:hidden"
-        >
-            <!-- <div class="pt-2 pb-3 space-y-1">
-            <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                Dashboard
-            </BreezeResponsiveNavLink>
-
-        </div> -->
-
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">
-                        {{ $page.props.auth.user.name }}
-                    </div>
-                    <div class="font-medium text-sm text-gray-500">
-                        {{ $page.props.auth.user.email }}
-                    </div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <BreezeResponsiveNavLink
-                        :href="route('logout')"
-                        method="post"
-                        as="button"
-                    >
-                        Log Out
-                    </BreezeResponsiveNavLink>
+            ">
+        <div class="d-flex flex-column flex-root">
+            <div class="page d-flex flex-row flex-column-fluid">
+                <Sidebar />
+                <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                    <HeaderContent />
+                    <slot></slot>
                 </div>
             </div>
         </div>
     </div>
+
+</div>
 </template>
 
 <script>
@@ -104,7 +24,9 @@ import BreezeDropdown from "@/Components/Dropdown.vue";
 import BreezeDropdownLink from "@/Components/DropdownLink.vue";
 import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import {
+    Link
+} from "@inertiajs/inertia-vue3";
 import Sidebar from "./Partials/Sidebar.vue";
 import HeaderContent from "./Partials/header.vue";
 // import HeaderLinks from './Partials/header-links.vue'
