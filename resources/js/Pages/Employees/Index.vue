@@ -251,7 +251,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            <div class="modal fade employeeModal" id="employeeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal fade employeeModal"  id="employeeModal" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-650px">
                     <!--begin::Modal content-->
@@ -282,32 +282,32 @@
                             <div class="modal-body py-10 px-lg-17">
                                 <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
                                     <input type="hidden" name="id" id="id" v-model="form.id">
-                                    <div class="fv-row mb-7">
-                                        <label class="required fs-6 fw-bold mb-2">Employee Id</label>
-                                        <input type="text" v-model="form.employeeId" class="form-control form-control-solid" placeholder="Ex. 1235" name="employee_id" />
+                                    <div class="form-group">
+                                        <label class="required fs-6 fw-bold mb-2" for="employee_id">Employee Id</label>
+                                        <input type="text" v-model="form.employeeId" class="form-control bg-secondary" id="employee_id" placeholder="Ex. 1235" name="employee_id" />
                                     </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="required fs-6 fw-bold mb-2">First Name</label>
-                                        <input type="text" v-model="form.firstName" class="form-control form-control-solid" placeholder="John" name="first_name" />
+                                    <div class="form-group">
+                                        <label class="required fs-6 fw-bold mb-2" for="first_name">First Name</label>
+                                        <input type="text" v-model="form.firstName" class="form-control bg-secondary" placeholder="John" name="first_name" id="first_name" />
                                     </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="required fs-6 fw-bold mb-2">Last Name</label>
-                                        <input type="text" v-model="form.lastName" class="form-control form-control-solid" placeholder="Dao" name="last_name" />
+                                    <div class="form-group">
+                                        <label class="required fs-6 fw-bold mb-2" for="last_name">Last Name</label>
+                                        <input type="text" v-model="form.lastName" class="form-control bg-secondary" placeholder="Dao" name="last_name" id="last_name" />
                                     </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="fs-6 fw-bold mb-2">
+                                    <div class="form-group">
+                                        <label class="fs-6 fw-bold mb-2" for="email">
                                             <span class="required">Email</span>
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Email address must be active"></i>
                                         </label>
-                                        <input type="email" v-model="form.email" class="form-control form-control-solid" placeholder="john.dao@gmail.com" name="email" />
+                                        <input type="email" v-model="form.email" class="form-control bg-secondary" placeholder="john.dao@gmail.com" name="email" id="email" />
                                     </div>
-                                    <div class="fv-row mb-15">
-                                        <label class="required fs-6 fw-bold mb-2">Mobile Number</label>
-                                        <input type="text" v-model="form.mobile" class="form-control form-control-solid" placeholder="Ex. 9871000033" name="mobile" />
+                                    <div class="form-group">
+                                        <label class="required fs-6 fw-bold mb-2" for="mobile">Mobile Number</label>
+                                        <input type="text" v-model="form.mobile" class="form-control bg-secondary" placeholder="Ex. 9871000033" name="mobile" id="mobile" />
                                     </div>
                                     <div class="form-check form-check-custom form-check-solid">
                                         <div class="fv-row mb-15">
-                                            <label class="required fs-6 fw-bold mb-2">Gender</label>
+                                            <label class="required fs-6 fw-bold mb-2" for="gender">Gender</label>
                                         </div>
                                         <input class="form-check-input" type="radio" value="male" name="gender" id="male" v-model="form.gender" />
                                         <label class="form-check-label" for="male">
@@ -514,6 +514,17 @@ export default {
     },
 
     methods: {
+        resetFormData() {
+            this.form = {
+            id: "",
+            employeeId: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            mobile: "",
+            gender: "",
+            };
+        },
         editUser(eId) {
             this.isUpdate = true;
             this.modalTitle = "Update Employee";
@@ -533,10 +544,14 @@ export default {
             }
         },
         openEmployeeModal() {
+            $('.employeeModal').modal({ backdrop: 'static', keyboard: false });
             $(".employeeModal").modal('show');
         },
         modalClose() {
+            this.resetFormData();
             $(".employeeModal").modal('hide');
+            this.isUpdate = false;
+            this.modalTitle = "Add Employee";
         },
         AddEmployee() {
             if (!this.isUpdate) {
@@ -565,6 +580,9 @@ export default {
                 }
                 store.dispatch(actions.EDIT_EMPLOYEES, payload);
             }
+            this.isUpdate = false;
+            this.modalTitle = "Add Employee";
+            this.resetFormData();
         },
 
         async DeleteEmployee(id) {
@@ -580,7 +598,6 @@ export default {
             }
         },
     },
-
     // mounted() {
     //     store.dispatch(actions.GET_EMPLOYEES);
     // }
