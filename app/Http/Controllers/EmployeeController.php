@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -16,7 +18,9 @@ class EmployeeController extends Controller
     public function index()
     {
         return Inertia::render('Employees/Index', [
-            'employees' => Employee::get()
+            //'employees' => Employee::orderby('created_at', 'DESC')->get(),
+            'employees' => fn () => Employee::orderby('created_at', 'DESC')->get(),
+            // 'employees' => Inertia::lazy(fn () => Employee::orderby('created_at', 'DESC')->get()),
         ]);
     }
 
@@ -38,7 +42,27 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $validate = Validator::make($request->all(), [
+        //     'employeeId' => 'required | numeric | unique:employees',
+        //     'firstName' => 'required | string |min:3',
+        //     'lastName' => 'required | string |min:3',
+        //     'email' => 'required | email | ',
+        //     'mobile',
+        //     'gender'
+        // ]);
+
+        $employee = new Employee();
+        $employee->employee_id = $request->employeeId;
+        $employee->first_name = $request->firstName;
+        $employee->last_name = $request->lastName;
+        $employee->email = $request->email;
+        $employee->mobile = $request->mobile;
+        $employee->gender = $request->gender;
+        $employee->save();
+
+        return response()->json([
+            'success' => true
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -70,9 +94,20 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::find($id);
+        $employee->employee_id = $request->employeeId;
+        $employee->first_name = $request->firstName;
+        $employee->last_name = $request->lastName;
+        $employee->email = $request->email;
+        $employee->mobile = $request->mobile;
+        $employee->gender = $request->gender;
+        $employee->save();
+
+        return response()->json([
+            'success' => true
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -81,8 +116,13 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        $employee = Employee::find($id);
+        $employee->delete();
+
+        return response()->json([
+            'success' => true
+        ], Response::HTTP_OK);
     }
 }

@@ -23,6 +23,10 @@
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
+</head>
+
+<body class="font-sans antialiased">
+    @inertia
     <script src="{{ asset('admin/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('admin/js/scripts.bundle.js') }}"></script>
     <script src="{{ asset('admin/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
@@ -36,13 +40,6 @@
     <script src="{{ asset('admin/js/custom/apps/customers/list/export.js') }}"></script>
     <script src="{{ asset('admin/js/custom/apps/customers/list/list.js') }}"></script>
     <script src="{{ asset('admin/js/custom/apps/customers/add.js') }}"></script>
-
-
-</head>
-
-<body class="font-sans antialiased">
-    @inertia
-
 </body>
 
 </html>
