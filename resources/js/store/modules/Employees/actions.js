@@ -8,7 +8,6 @@ export default {
         axios.post('employee', payload)
             .then(res => {
                 if (res.data.success == true) {
-                    // window.location.href = '/employee'
                     console.log(res.data.success);
                     $(".modal").modal('hide');
                     Inertia.reload({
@@ -52,6 +51,22 @@ export default {
                 console.log(err.response.data.errors);
             })
     },
+
+    [actions.RE_ACTIVE_EMPLOYEE]({commit}, payload) {
+        axios.post(`api/employees/${payload.id}`, payload.data)
+        .then(res => {
+            if (res.data.success == true) {
+                console.log(res.data.success);
+                Inertia.reload({
+                    only: ['employees']
+                })
+            }
+        })
+        .catch(err => {
+            commit(mutations.SET_ERRORS, err.response.data.errors)
+            console.log(err.response.data.errors);
+        })
+    }
 
 }
 
