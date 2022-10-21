@@ -18,9 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         return Inertia::render('Employees/Index', [
-            //'employees' => Employee::orderby('created_at', 'DESC')->get(),
-            'employees' => fn () => Employee::orderby('created_at', 'DESC')->get(),
-            // 'employees' => Inertia::lazy(fn () => Employee::orderby('created_at', 'DESC')->get()),
+            'employees' => fn () => Employee::withTrashed()->orderby('status', 'DESC')->orderBy('employee_id', 'ASC')->get()
         ]);
     }
 
@@ -71,9 +69,18 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    public function show($id)
     {
-        //
+        $employee = Employee::withTrashed()->find($id);
+
+        return Inertia::render('Employees/Show', [
+            'employees' => $employee,
+        ]);
+
+        // return response()->json([
+        //     'success' => true,
+        //     'data' => $employee
+        // ], Response::HTTP_OK);
     }
 
     /**
@@ -119,6 +126,9 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = Employee::find($id);
+        // for change employee status
+        $employee->status = 0;
+        $employee->save();
         $employee->delete();
 
         return response()->json([
