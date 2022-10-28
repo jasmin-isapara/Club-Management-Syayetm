@@ -183,7 +183,7 @@
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
-                        <tbody class="fw-bold text-gray-600">
+                        <tbody class="fw-bold text-gray-600" v-if="employees.length > 0 && isSearch == false">
                             <tr v-for="emp in employees" :key="emp.id">
                                 <td>
                                     <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
@@ -245,6 +245,9 @@
                                 </td>
                                 <!--end::Action=-->
                             </tr>
+                        </tbody>
+                        <tbody v-else>
+                            <td colspan="5">{{ message}}</td>
                         </tbody>
                         <!--end::Table body-->
                     </table>
@@ -526,6 +529,8 @@ export default {
             employee: this.employees,
             employeeClone: this.employees,
             errors: [],
+            isSearch:false,
+            message:'No Data Found',
         };
     },
 
@@ -649,14 +654,14 @@ export default {
         },
 
         async DeleteEmployee(id) {
-            console.log(id);
             let del = await axios.delete("employee/" + id);
 
             if (del.data.success == true) {
                 Inertia.reload({
                     only: ['employees']
-                })
+                });
             }
+            this.$forceUpdate();
         },
 
         async reActiveEmployee(id) {
@@ -682,18 +687,33 @@ export default {
 
         async searchEmployee(names) {
             if (this.search) {
+                this.message = 'Searching...';
+                this.isSearch = true;
                 let name = names.toLowerCase();
-                let data = this.employeeClone.filter(function (emp) {
+                let empData = Array.from(this.employeeClone);
+                let data = empData.filter(function (emp) {
                     return emp.first_name.toLowerCase().includes(name) ||
-                        emp.email.toLowerCase().includes(name)
+                        emp.last_name.toLowerCase().includes(name) ||
+                        emp.email.toLowerCase().includes(name) ||
+                        emp.employee_id.toString().includes(name)
                 });
-                this.employee = [];
+
+                this.employees.splice(0, this.employees.length)
                 data.forEach(element => {
-                    this.employee.push(element);
+                    this.employees.push(element);
                 });
-                this.$forceUpdate();
+                let $this = this;
+                setTimeout(function(){
+                    $this.isSearch = false;
+                    $this.message = 'No Data Found';
+                    $this.$forceUpdate();
+                },1000);
             } else {
-                return this.employee = this.employeeClone;
+                Inertia.reload({
+                            only: ['employees']
+                        })
+                this.isSearch = false;
+                this.message = 'No Data Found';
             }
         },
 
