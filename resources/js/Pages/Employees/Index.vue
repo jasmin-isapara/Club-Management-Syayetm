@@ -692,13 +692,15 @@ export default {
                 let name = names.toLowerCase();
                 let empData = Array.from(this.employeeClone);
                 let data = empData.filter(function (emp) {
-                    return emp.first_name.toLowerCase().includes(name) ||
-                        emp.last_name.toLowerCase().includes(name) ||
+                    return emp.full_name.toLowerCase().includes(name) ||
                         emp.email.toLowerCase().includes(name) ||
                         emp.employee_id.toString().includes(name)
                 });
 
                 this.employees.splice(0, this.employees.length)
+                // for (let index = 0; index <= this.employees.length; index++) {
+                //     this.employees.pop();
+                // }
                 data.forEach(element => {
                     this.employees.push(element);
                 });
@@ -716,17 +718,6 @@ export default {
                 this.message = 'No Data Found';
             }
         },
-
-        // async showEmployee(id) {
-        //     <Link >
-        //     let empData = await axios.get(`employee/${id}`)
-        //     console.log(empData.data);
-        //     // if(empData.data.success == true && empData.data.data != undefined) {
-        //     // }
-        // },
     },
-    // mounted() {
-    //     store.dispatch(actions.GET_EMPLOYEES);
-    // }
 };
 </script>
