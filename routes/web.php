@@ -4,7 +4,6 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\EmployeeController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 
 /*
 |--------------------------------------------------------------------------

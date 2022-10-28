@@ -69,8 +69,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-center py-6 px-9">
-                    <BreezeNavLink :href="route('employee.index')" class="btn btn-dark btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 w-50">Back</BreezeNavLink>
+                <div class="card-footer">
+                    <BreezeNavLink :href="route('employee.index')" class="btn btn-dark btn-bg-light btn-active-color-primary btn-sm me-1 w-max">Back</BreezeNavLink>
                 </div>
             </form>
         </div>
