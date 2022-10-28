@@ -30,12 +30,4 @@ class EmployeeAPIController extends Controller
             'data' => $employee
         ], Response::HTTP_OK);
     }
-
-    public function search($name) {
-        $employee = Employee::withTrashed()->where('first_name', 'like', '%'.$name.'%')->get();
-        return response()->json([
-            'success'=>true,
-            'data'=>$employee
-        ], Response::HTTP_OK);
-    }
 }

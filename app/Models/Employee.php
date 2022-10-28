@@ -13,4 +13,9 @@ class Employee extends Model
 
     protected $dates = ['deleted_at'];
     protected $guarded = [];
+    protected $appends = ['full_name'];
+
+    public function getFullNameAttribute() {
+        return $this->first_name." ".$this->last_name;
+    }
 }

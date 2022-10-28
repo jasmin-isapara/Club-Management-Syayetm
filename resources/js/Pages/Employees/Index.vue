@@ -1,5 +1,5 @@
 <template>
-<Head title="Dashboard" />
+<Head title="Employees" />
 
 <BreezeAuthenticatedLayout>
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -21,7 +21,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
+                            <input type="text" data-kt-customer-table-filter="search" v-model="search" @keyup="searchEmployee(search)" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -184,30 +184,30 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="fw-bold text-gray-600">
-                            <tr v-for="employee in employees" :key="employee.id">
+                            <tr v-for="emp in employees" :key="emp.id">
                                 <td>
-                                    <div class="text-gray-600 text-hover-primary mb-1">
-                                        {{employee.employee_id}}
-                                    </div>
+                                    <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
+                                        {{emp.employee_id}}
+                                    </a>
                                 </td>
                                 <td>
-                                    <a href="" class="text-gray-800 text-hover-primary mb-1">{{ employee.first_name }}</a>
+                                    <a :href="route('employee.show', emp.id)" class="text-gray-800 text-hover-primary mb-1">{{ emp.full_name }}</a>
                                     <!-- <a href="../../demo1/dist/apps/customers/view.html" class="text-gray-800 text-hover-primary mb-1">Emma Smith</a> -->
                                 </td>
                                 <td>
-                                    <div class="text-gray-600 text-hover-primary mb-1">
-                                        {{ employee.email }}
-                                    </div>
+                                    <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
+                                        {{ emp.email }}
+                                    </a>
                                 </td>
                                 <td>
                                     <div class="text-gray-600 text-hover-primary mb-1">
-                                        {{ format_Date(employee.created_at) }}
+                                        {{ format_Date(emp.created_at) }}
                                     </div>
                                 </td>
                                 <!--begin::Action=-->
 
                                 <td class="text-end">
-                                    <buttton v-if="employee.status==0" @click="reActiveEmployee(employee.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <buttton v-if="emp.status==0" @click="reActiveEmployee(emp.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -217,15 +217,15 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                     </buttton>
-                                    <button type="button" @click="showEmployee(employee.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <BreezeNavLink :href="route('employee.show', emp.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                             </svg>
                                         </span>
-                                    </button>
-                                    <button type="button" v-if="employee.status==1" @click="editEmployee(employee.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    </BreezeNavLink>
+                                    <button type="button" v-if="emp.status==1" @click="editEmployee(emp.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="currentColor" />
@@ -233,7 +233,7 @@
                                             </svg>
                                         </span>
                                     </button>
-                                    <button v-if="employee.status==1" @click="DeleteEmployee(employee.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-kt-customer-table-filter="delete_row">
+                                    <button v-if="emp.status==1" @click="DeleteEmployee(emp.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-kt-customer-table-filter="delete_row">
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
@@ -255,7 +255,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            <div class="modal fade employeeModal"  id="employeeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal fade employeeModal" id="employeeModal" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-650px">
                     <!--begin::Modal content-->
@@ -289,14 +289,23 @@
                                     <div class="form-group">
                                         <label class="required fs-6 fw-bold mb-2" for="employee_id">Employee Id</label>
                                         <input type="text" v-model="form.employeeId" class="form-control bg-secondary" id="employee_id" placeholder="Ex. 1235" name="employee_id" />
+                                        <span class="text-danger">
+                                            {{ errors.employeeId }}
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label class="required fs-6 fw-bold mb-2" for="first_name">First Name</label>
                                         <input type="text" v-model="form.firstName" class="form-control bg-secondary" placeholder="John" name="first_name" id="first_name" />
+                                        <span class="text-danger">
+                                            {{ errors.firstName }}
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label class="required fs-6 fw-bold mb-2" for="last_name">Last Name</label>
                                         <input type="text" v-model="form.lastName" class="form-control bg-secondary" placeholder="Dao" name="last_name" id="last_name" />
+                                        <span class="text-danger">
+                                            {{ errors.lastName }}
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label class="fs-6 fw-bold mb-2" for="email">
@@ -304,10 +313,16 @@
                                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Email address must be active"></i>
                                         </label>
                                         <input type="email" v-model="form.email" class="form-control bg-secondary" placeholder="john.dao@gmail.com" name="email" id="email" />
+                                        <span class="text-danger">
+                                            {{ errors.email }}
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label class="required fs-6 fw-bold mb-2" for="mobile">Mobile Number</label>
                                         <input type="text" v-model="form.mobile" class="form-control bg-secondary" placeholder="Ex. 9871000033" name="mobile" id="mobile" />
+                                        <span class="text-danger">
+                                            {{ errors.mobile }}
+                                        </span>
                                     </div>
                                     <div class="form-check form-check-custom form-check-solid">
                                         <div class="fv-row mb-15">
@@ -322,6 +337,9 @@
                                         <label class="form-check-label" for="female">
                                             Female
                                         </label>
+                                        <span class="form-group text-danger">
+                                            {{ errors.gender }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -469,9 +487,10 @@
 </template>
 
 <script>
+import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import {
-    Head
+    Head, Link
 } from "@inertiajs/inertia-vue3";
 import store from "../../store";
 import * as actions from "../../store/action-types";
@@ -501,8 +520,12 @@ export default {
         const isUpdate = false;
         return {
             form,
+            search: "",
             isUpdate,
             modalTitle: "Add Employee",
+            employee: this.employees,
+            employeeClone: this.employees,
+            errors: [],
         };
     },
 
@@ -510,29 +533,31 @@ export default {
         BreezeAuthenticatedLayout,
         Head,
         ShowErrors,
+        BreezeNavLink
     },
 
     computed: {
         ...mapGetters({
             employees: "getEmployees",
+            // errors:"getErrors",
         }),
     },
 
     methods: {
         resetFormData() {
             this.form = {
-            id: "",
-            employeeId: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            mobile: "",
-            gender: "",
+                id: "",
+                employeeId: "",
+                firstName: "",
+                lastName: "",
+                email: "",
+                mobile: "",
+                gender: "",
             };
         },
 
         format_Date(value) {
-            if(value) {
+            if (value) {
                 return moment(String(value)).format('DD-MM-YYYY')
             }
         },
@@ -556,12 +581,16 @@ export default {
             }
         },
         openEmployeeModal() {
-            $('.employeeModal').modal({ backdrop: 'static', keyboard: false });
+            $('.employeeModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             $(".employeeModal").modal('show');
         },
         modalClose() {
-            this.resetFormData();
             $(".employeeModal").modal('hide');
+            this.resetFormData();
+            this.errors = [];
             this.isUpdate = false;
             this.modalTitle = "Add Employee";
         },
@@ -574,7 +603,20 @@ export default {
                 data.append("email", this.form.email);
                 data.append("mobile", this.form.mobile);
                 data.append("gender", this.form.gender);
-                store.dispatch(actions.ADD_EMPLOYEES, data);
+
+                axios.post('employee', data)
+                    .then(res => {
+                        if (res.data.success == true) {
+                            this.modalClose();
+                            Inertia.reload({
+                                only: ['employees']
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        let errors = err.response.data.errors;
+                        this.errors = errors;
+                    })
             } else {
                 let data = new FormData();
                 data.append("_method", "PUT");
@@ -586,15 +628,24 @@ export default {
                 data.append("mobile", this.form.mobile);
                 data.append("gender", this.form.gender);
 
-                let payload = {
-                    data: data,
-                    id: this.form.id,
-                }
-                store.dispatch(actions.EDIT_EMPLOYEES, payload);
+                axios.post(`/employee/${this.form.id}`, data)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.success == true) {
+                            console.log(res.data.success);
+                            this.modalClose();
+                            Inertia.reload({
+                                only: ['employees']
+                            })
+                        }
+                        this.isUpdate = false;
+                        this.modalTitle = "Add Employee";
+                    })
+                    .catch(err => {
+                        let errors = err.response.data.errors;
+                        this.errors = errors;
+                    })
             }
-            this.isUpdate = false;
-            this.modalTitle = "Add Employee";
-            this.resetFormData();
         },
 
         async DeleteEmployee(id) {
@@ -614,19 +665,45 @@ export default {
             data.append("status", 1);
             data.append("deleted_at", "");
 
-            let payload = {
-                data: data,
-                id: id
-            }
-            store.dispatch(actions.RE_ACTIVE_EMPLOYEE, payload)
+            axios.post(`api/employees/${id}`, data)
+                .then(res => {
+                    if (res.data.success == true) {
+                        console.log(res.data.success);
+                        Inertia.reload({
+                            only: ['employees']
+                        })
+                    }
+                })
+                .catch(err => {
+                        let errors = err.response.data.errors;
+                        this.errors = errors;
+                })
         },
 
-        async showEmployee(id) {
-            let empData = await axios.get(`employee/${id}`)
-            console.log(empData.data);
-            // if(empData.data.success == true && empData.data.data != undefined) {
-            // }
+        async searchEmployee(names) {
+            if (this.search) {
+                let name = names.toLowerCase();
+                let data = this.employeeClone.filter(function (emp) {
+                    return emp.first_name.toLowerCase().includes(name) ||
+                        emp.email.toLowerCase().includes(name)
+                });
+                this.employee = [];
+                data.forEach(element => {
+                    this.employee.push(element);
+                });
+                this.$forceUpdate();
+            } else {
+                return this.employee = this.employeeClone;
+            }
         },
+
+        // async showEmployee(id) {
+        //     <Link >
+        //     let empData = await axios.get(`employee/${id}`)
+        //     console.log(empData.data);
+        //     // if(empData.data.success == true && empData.data.data != undefined) {
+        //     // }
+        // },
     },
     // mounted() {
     //     store.dispatch(actions.GET_EMPLOYEES);
