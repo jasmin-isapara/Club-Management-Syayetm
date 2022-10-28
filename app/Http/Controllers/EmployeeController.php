@@ -40,14 +40,14 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        // $validate = Validator::make($request->all(), [
-        //     'employeeId' => 'required | numeric | unique:employees',
-        //     'firstName' => 'required | string |min:3',
-        //     'lastName' => 'required | string |min:3',
-        //     'email' => 'required | email | ',
-        //     'mobile',
-        //     'gender'
-        // ]);
+        $request->validate([
+            'employeeId' => 'required | numeric | min:1 | unique:employees,employee_id',
+            'firstName' => 'required | string |min:3',
+            'lastName' => 'required | string |min:3',
+            'email' => 'required | email | regex:/(.+)@arsenaltech.com/ | unique:employees,email',
+            'mobile' => 'required | numeric | min:10',
+            'gender' => 'required'
+        ]);
 
         $employee = new Employee();
         $employee->employee_id = $request->employeeId;
@@ -73,14 +73,9 @@ class EmployeeController extends Controller
     {
         $employee = Employee::withTrashed()->find($id);
 
-        return Inertia::render('Employees/Show', [
-            'employees' => $employee,
+        return Inertia::render('Employees/Show',[
+            'employee'=>$employee,
         ]);
-
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $employee
-        // ], Response::HTTP_OK);
     }
 
     /**
@@ -103,6 +98,15 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'employeeId' => 'required | numeric | min:1 | unique:employees,employee_id,' . $id,
+            'firstName' => 'required | string |min:3',
+            'lastName' => 'required | string |min:3',
+            'email' => 'required | email | regex:/(.+)@arsenaltech.com/ | unique:employees,email,' . $id,
+            'mobile' => 'required | numeric | min:10 | unique:employees,mobile,' . $id,
+            'gender' => 'required'
+        ]);
+
         $employee = Employee::find($id);
         $employee->employee_id = $request->employeeId;
         $employee->first_name = $request->firstName;

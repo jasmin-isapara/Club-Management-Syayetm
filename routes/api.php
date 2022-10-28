@@ -22,5 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::get('/employees', [EmployeeAPIController::class, 'getEmployees']);
 
-Route::resource('employees', EmployeeAPIController::class)->except('search');
-Route::get('search/{name}', [EmployeeAPIController::class, 'search']);
+Route::resource('employees', EmployeeAPIController::class);

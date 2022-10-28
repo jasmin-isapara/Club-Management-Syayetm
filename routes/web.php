@@ -35,7 +35,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('employee', EmployeeController::class);
-// Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
 Route::get('/demo', [DemoController::class, 'index'])->name('demo');
 
 Route::view('demo1', 'demo1');
