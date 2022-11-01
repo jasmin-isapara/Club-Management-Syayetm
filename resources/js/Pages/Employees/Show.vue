@@ -56,8 +56,7 @@
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Created_at</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="form-control form-control-lg form-control-solid">
-                                        <!-- {{ format_Date(employee.created_at)}} -->
-                                        {{employee.created_at}}
+                                        {{ format_Date(employee.created_at)}}
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +64,7 @@
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Updated_at</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="form-control form-control-lg form-control-solid">
-                                        <!-- {{ format_Date(employee.created_at)}} -->
-                                        {{employee.updated_at}}
+                                        {{ format_Date(employee.updated_at)}}
                                     </div>
                                 </div>
                             </div>
@@ -74,8 +72,7 @@
                                 <label class="col-lg-4 col-form-label fw-bold fs-6">Deleted_at</label>
                                 <div class="col-lg-8 fv-row">
                                     <div class="form-control form-control-lg form-control-solid">
-                                        <!-- {{ format_Date(employee.created_at)}} -->
-                                        {{employee.deleted_at}}
+                                        {{ format_Date(employee.deleted_at)}}
                                     </div>
                                 </div>
                             </div>
@@ -117,10 +114,12 @@ export default {
         BreezeNavLink,
     },
 
-    format_Date(value) {
-        if (value) {
-            return moment(String(value)).format('DD-MM-YYYY')
-        }
-    },
+    methods: {
+        format_Date(value) {
+            if (value) {
+                return moment(String(value)).format('DD-MM-YYYY')
+            }
+        },
+    }
 }
 </script>
