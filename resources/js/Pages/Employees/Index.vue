@@ -250,7 +250,7 @@
                             </tr>
                         </tbody>
                         <tbody v-else>
-                            <td colspan="5">{{ message}}</td>
+                            <td colspan="6">{{ message}}</td>
                         </tbody>
                         <!--end::Table body-->
                     </table>
@@ -702,6 +702,7 @@ export default {
                 // for (let index = 0; index <= this.employees.length; index++) {
                 //     this.employees.pop();
                 // }
+                console.log(data);
                 data.forEach(element => {
                     this.employees.push(element);
                 });
@@ -717,6 +718,7 @@ export default {
                         })
                 this.isSearch = false;
                 this.message = 'No Data Found';
+                this.$forceUpdate();
             }
         },
     },
