@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\IncomeController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('employee', EmployeeController::class);
+Route::group(['prefix'=>'incomes',"as" => 'incomes.'],function(){
+    Route::get('/', [IncomeController::class, 'index'])->name('index');
+    Route::get('/complete_contribution', [IncomeController::class, 'completeContribution'])->name('complete');
+    Route::get('/pending_contribution', [IncomeController::class, 'pendingContribution'])->name('pending');
+});
+
 Route::get('/demo', [DemoController::class, 'index'])->name('demo');
 
 Route::view('demo1', 'demo1');
