@@ -44,16 +44,16 @@ class EmployeeController extends Controller
             'employeeId' => 'required | numeric | min:1 | unique:employees,employee_id',
             'firstName' => 'required | string |min:3',
             'lastName' => 'required | string |min:3',
-            'email' => 'required | email | regex:/(.+)@arsenaltech.com/ | unique:employees,email',
-            'mobile' => 'required | numeric | min:10',
+            'email' => 'required | email | regex:/^[a-z]+(.)+[a-z]+@arsenaltech.com/ | unique:employees,email',
+            'mobile' => 'required | numeric | regex:/[0-9]{10}/ | starts_with:6,7,8,9, | digits:10 | unique:employees,mobile',
             'gender' => 'required'
         ]);
 
         $employee = new Employee();
         $employee->employee_id = $request->employeeId;
-        $employee->first_name = $request->firstName;
-        $employee->last_name = $request->lastName;
-        $employee->email = $request->email;
+        $employee->first_name = strtolower($request->firstName);
+        $employee->last_name = strtolower($request->lastName);
+        $employee->email = strtolower($request->email);
         $employee->mobile = $request->mobile;
         $employee->gender = $request->gender;
         $employee->save();
@@ -102,8 +102,8 @@ class EmployeeController extends Controller
             'employeeId' => 'required | numeric | min:1 | unique:employees,employee_id,' . $id,
             'firstName' => 'required | string |min:3',
             'lastName' => 'required | string |min:3',
-            'email' => 'required | email | regex:/(.+)@arsenaltech.com/ | unique:employees,email,' . $id,
-            'mobile' => 'required | numeric | min:10 | unique:employees,mobile,' . $id,
+            'email' => 'required | email | regex:/^[a-z]+(.)+[a-z]+@arsenaltech.com/ | unique:employees,email',
+            'mobile' => 'required | numeric | regex:/[0-9]/ | starts_with:6,7,8,9, | digits:10 | unique:employees,mobile,' . $id,
             'gender' => 'required'
         ]);
 

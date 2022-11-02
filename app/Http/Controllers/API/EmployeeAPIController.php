@@ -19,6 +19,7 @@ class EmployeeAPIController extends Controller
         ], Response::HTTP_OK);
     }
 
+    // update status when employees is inactive(deleted) to active
     public function update(Request $request, $id) {
         $employee = Employee::withTrashed()->find($id);
         $employee->status = $request->status;

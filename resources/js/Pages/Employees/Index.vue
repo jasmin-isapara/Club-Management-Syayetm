@@ -176,6 +176,7 @@
                                 <th class="min-w-125px">Employee ID</th>
                                 <th class="min-w-125px">Employee Name</th>
                                 <th class="min-w-125px">Email</th>
+                                <th class="min-w-125px">Mobile</th>
                                 <th class="min-w-125px">Created Date</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
@@ -186,21 +187,23 @@
                         <tbody class="fw-bold text-gray-600" v-if="employees.length > 0 && isSearch == false">
                             <tr v-for="emp in employees" :key="emp.id">
                                 <td>
-                                    <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
-                                        {{emp.employee_id}}
-                                    </a>
+                                    <BreezeNavLink :href="route('employee.show', emp.id)" class="text-gray-600 text-lg text-hover-primary mb-1">{{emp.employee_id}}</BreezeNavLink>
                                 </td>
                                 <td>
-                                    <a :href="route('employee.show', emp.id)" class="text-gray-800 text-hover-primary mb-1">{{ emp.full_name }}</a>
-                                    <!-- <a href="../../demo1/dist/apps/customers/view.html" class="text-gray-800 text-hover-primary mb-1">Emma Smith</a> -->
+                                    <!-- <a :href="route('employee.show', emp.id)" class="text-gray-800 text-hover-primary mb-1">{{ emp.full_name }}</a> -->
+                                    <BreezeNavLink :href="route('employee.show', emp.id)" class="text-gray-600 text-lg text-hover-primary mb-1">{{emp.full_name}}</BreezeNavLink>
                                 </td>
                                 <td>
-                                    <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
+                                    <!-- <a :href="route('employee.show', emp.id)" class="text-gray-600 text-hover-primary mb-1">
                                         {{ emp.email }}
-                                    </a>
+                                    </a> -->
+                                    <BreezeNavLink :href="route('employee.show', emp.id)" class="text-gray-600 text-lg text-hover-primary mb-1">{{emp.email}}</BreezeNavLink>
                                 </td>
                                 <td>
-                                    <div class="text-gray-600 text-hover-primary mb-1">
+                                    <div class="text-gray-600 text-lg text-hover-primary mb-1">{{emp.mobile_number}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-gray-600 text-lg text-hover-primary mb-1">
                                         {{ format_Date(emp.created_at) }}
                                     </div>
                                 </td>
@@ -493,10 +496,8 @@
 import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import {
-    Head, Link
+    Head
 } from "@inertiajs/inertia-vue3";
-import store from "../../store";
-import * as actions from "../../store/action-types";
 import {
     mapGetters
 } from "vuex";

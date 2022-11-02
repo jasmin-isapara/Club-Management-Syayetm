@@ -13,9 +13,15 @@ class Employee extends Model
 
     protected $dates = ['deleted_at'];
     protected $guarded = [];
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'mobile_number'];
 
     public function getFullNameAttribute() {
-        return $this->first_name." ".$this->last_name;
+        $fname = strtolower($this->first_name);
+        $lname = strtolower($this->last_name);
+        return ucfirst($fname)." ".ucfirst($lname);
+    }
+
+    public function getMobileNumberAttribute() {
+        return "+91".$this->mobile;
     }
 }
